@@ -43,7 +43,7 @@ namespace MarksAltSourceBank
 			//string loggedInUser = getLoggedInUser(accounts);
 			while (value)
 			{
-				Console.WriteLine(currentUser);
+				//Console.WriteLine(currentUser);
 				string result = "";
 				//	if (loggedInUser != "") Console.WriteLine($"Hello {loggedInUser}");
 				if (sessionLogin.loggedInUser != "")
@@ -57,10 +57,27 @@ namespace MarksAltSourceBank
 				{
 					Console.Clear();
 					Console.WriteLine($"You are logged in as {thisUser}");
+					Console.WriteLine();
+					currentUser = thisUser;
 				}
-				else Console.Clear();
-			Console.Write("Press N for New Account, L for Login, D for Deposit, W for Withdraw, B for Check Balance, " +
-				"V for Viewing the Transaction Log, O for logout, E for Exit: ");
+				else
+				{
+					Console.Clear();
+					Console.WriteLine("Please login or select N to create a new account");
+					Console.WriteLine();
+				}
+				Console.WriteLine("Press N to create a new account");
+				Console.WriteLine("Press L to login");
+				Console.WriteLine("Press D to make a deposit");
+				Console.WriteLine("Press W to make a withdrawal");
+				Console.WriteLine("Press B to check your balance");
+				Console.WriteLine("Press V to view your transaction log");
+				Console.WriteLine("Press O to Logout");
+				Console.WriteLine("Press E to exit");
+				Console.WriteLine();
+				Console.Write("Please enter a selection: ");
+			//	Console.Write("Press N for New Account, L for Login, D for Deposit, W for Withdraw, B for Check Balance, " +
+			//	"V for Viewing the Transaction Log, O for logout, E for Exit: ");
 				result = Console.ReadLine();
 				result = result.ToUpper();
 
@@ -82,7 +99,14 @@ namespace MarksAltSourceBank
 
 						break;
 					case "L":
+						if (thisUser != "")
+						{
+							Console.Clear();
+							Console.Write($"You are already logged in as {thisUser}, please logout to login again as another user, please hit enter to continue");
+							Console.ReadLine();
+							break;
 
+						}
 						bool loginsuccess = AttemptLogin(accounts, sessionLogin, currentUser);
 						double origBalance = sessionLogin.loggedInUserBalance;
 						if (loginsuccess) {
@@ -115,25 +139,24 @@ namespace MarksAltSourceBank
 					case "D":
 						//		originalBalance = sessionLogin.loggedInUserBalance;
 						string userLoggedIn = sessionLogin.loggedInUser;
-						Console.WriteLine(currentUser);
 						bool loggedinForDeposit = makeDeposit(accounts, sessionLogin);
-
 						break;
-
-
 					case "W":
 						userLoggedIn = sessionLogin.loggedInUser;
-						Console.WriteLine(currentUser);
-						bool loggedinForWithrawal = makeWithdrawal(accounts, sessionLogin);
-
+						bool loggedinForWithdrawal = makeWithdrawal(accounts, sessionLogin);
 						break;
 					case "B":
 						userLoggedIn = sessionLogin.loggedInUser;
-						Console.WriteLine(currentUser);
 						bool loggedinCheckBalance = checkBalance(accounts, sessionLogin);
-
 						break;
-
+					case "V":
+						userLoggedIn = sessionLogin.loggedInUser;
+						bool loggedinForViewLog = viewLog(accounts, sessionLogin);
+						break;
+					case "O":
+						userLoggedIn = sessionLogin.loggedInUser;
+						bool loggedOut = logOut(accounts, sessionLogin);
+						break;
 					case "E":
 						Console.WriteLine("You are going to exit the application");
 						Console.WriteLine("Have a Nice Day");
@@ -145,9 +168,6 @@ namespace MarksAltSourceBank
 						break;
 				}
 			}
-
-
-
 			return result;
 		}
 
@@ -209,8 +229,7 @@ namespace MarksAltSourceBank
 				var tempuser = account.Key;
 				
 
-				Console.WriteLine(tempvalue.password);
-				Console.WriteLine(tempuser);
+
 				if ((user == tempuser) && (pass == tempvalue.password)) 
 				{
 					Console.WriteLine("You will be logged in");
@@ -218,7 +237,6 @@ namespace MarksAltSourceBank
 					state.loggedInUser = user;
 					state.loggedInUserBalance = tempvalue.Balance;
 					tempvalue.isLoggedin = true;
-					Console.WriteLine("stop and see why marcus is not logged in");
 					double originalBalance = tempvalue.Balance;
 					
 					
@@ -227,9 +245,10 @@ namespace MarksAltSourceBank
 				}
 				else
 				{
-					Console.WriteLine("You will not be logged in");
+			//		Console.WriteLine("Error, your username or password is incorrect, please hit enter to continue");
+			//		Console.ReadLine();
 					bool loggedIn = false;
-					Console.WriteLine();
+			//		Console.WriteLine();
 
 				}
 				if ((user == tempuser) && (tempvalue.isLoggedin))
@@ -254,7 +273,11 @@ namespace MarksAltSourceBank
 				
 				Console.WriteLine();
 			}
-			return true;
+
+				Console.WriteLine("Error, you have not entered the correct username/password combo, please hit enter to continue");
+				Console.ReadLine();
+				return false;
+	
 		}
 
 		public double getBalance(Account account)
@@ -270,12 +293,11 @@ namespace MarksAltSourceBank
 		{
 
 			var tempAccounts = accounts;
-			Console.WriteLine("You are here 3");
 			SessionState session = state;
 			double originalBalance = session.loggedInUserBalance;
 			if (tempAccounts.Count == 0)
 			{
-				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu 1");
 				Console.ReadLine();
 				return false;
 			}
@@ -286,17 +308,17 @@ namespace MarksAltSourceBank
 				var tempuser = account.Key;
 
 
-				Console.WriteLine(tempvalue.password);
-				Console.WriteLine(tempuser);
-				Console.WriteLine(tempvalue.isLoggedin);
-				Console.WriteLine("marcus should be logged in");
+				//Console.WriteLine(tempvalue.password);
+				//Console.WriteLine(tempuser);
+				//Console.WriteLine(tempvalue.isLoggedin);
+
 				if (!tempvalue.isLoggedin)
 				{
-					Console.WriteLine("Error, the user I just checked is not the user attempting to login ");
-					Console.ReadLine();
+					//Console.WriteLine("Error, the user I just checked is not the user attempting to login ");
+					//Console.ReadLine();
 					continue;
 				}
-				Console.WriteLine(tempvalue.Balance);
+				Console.WriteLine($"Your current balance is {tempvalue.Balance}");
 				double origBalance = tempvalue.Balance;
 
 				double depositAmount;
@@ -313,7 +335,7 @@ namespace MarksAltSourceBank
 			}
 			if (tempAccounts.Count == 0)
 			{
-				Console.WriteLine("Error, you must be logged in 2");
+				Console.WriteLine("Error, you must be logged in");
 				return false;
 			}
 			return true;
@@ -323,12 +345,12 @@ namespace MarksAltSourceBank
 		{
 
 			var tempAccounts = accounts;
-			Console.WriteLine("You are here 3");
+
 			SessionState session = state;
 			double originalBalance = session.loggedInUserBalance;
 			if (tempAccounts.Count == 0)
 			{
-				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu 2 ");
 				Console.ReadLine();
 				return false;
 			}
@@ -339,16 +361,12 @@ namespace MarksAltSourceBank
 				var tempuser = account.Key;
 
 
-				Console.WriteLine(tempvalue.password);
-				Console.WriteLine(tempuser);
-				Console.WriteLine(tempvalue.isLoggedin);
+
 				if (!tempvalue.isLoggedin)
 				{
-					Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
-					Console.ReadLine();
 					continue;
 				}
-				Console.WriteLine(tempvalue.Balance);
+				Console.WriteLine($"Your current balance is {tempvalue.Balance}");
 				double origBalance = tempvalue.Balance;
 
 				double withrawAmount;
@@ -376,7 +394,6 @@ namespace MarksAltSourceBank
 		{
 
 			var tempAccounts = accounts;
-			Console.WriteLine("You are here 5");
 			SessionState session = state;
 			double originalBalance = session.loggedInUserBalance;
 			if (tempAccounts.Count == 0)
@@ -392,23 +409,84 @@ namespace MarksAltSourceBank
 				var tempuser = account.Key;
 
 
-				Console.WriteLine(tempvalue.password);
-				Console.WriteLine(tempuser);
-				Console.WriteLine(tempvalue.isLoggedin);
+
 				if (!tempvalue.isLoggedin)
 				{
-					Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
-					Console.ReadLine();
 					continue;
 				}
-				Console.WriteLine(tempvalue.Balance);
+
 				double origBalance = tempvalue.Balance;
 				Console.WriteLine($"Your balance is {origBalance}, hit enter to continue");
 				Console.ReadLine();
 
 				tempvalue.userLog.Add("Checked balance at " + DateTime.Now);
-				Console.WriteLine("you are here 4");
 
+			}
+			return true;
+		}
+
+		public bool logOut(Dictionary<string, Account> accounts, SessionState state)
+		{
+
+			var tempAccounts = accounts;
+			SessionState session = state;
+			double originalBalance = session.loggedInUserBalance;
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.ReadLine();
+				return false;
+			}
+
+			foreach (var account in tempAccounts)
+			{
+				var tempvalue = account.Value;
+				var tempuser = account.Key;
+				tempvalue.userLog.Add("Logged out at " + DateTime.Now);
+				tempvalue.isLoggedin = false;
+				//Console.WriteLine($"You have logged out, have a great day! Please press enter to continue");
+				//Console.ReadLine();
+				//return true;
+			}
+			Console.WriteLine($"You have logged out, have a great day! Please press enter to continue");
+			Console.ReadLine();
+			return true;
+		}
+
+		public bool viewLog(Dictionary<string, Account> accounts, SessionState state)
+		{
+
+			var tempAccounts = accounts;
+			SessionState session = state;
+			double originalBalance = session.loggedInUserBalance;
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.ReadLine();
+				return false;
+			}
+
+			foreach (var account in tempAccounts)
+			{
+				var tempvalue = account.Value;
+				var tempuser = account.Key;
+
+
+
+				if (!tempvalue.isLoggedin)
+				{
+					continue;
+				}
+				Console.WriteLine();
+				Console.WriteLine($"Transaction Log for {tempuser}");
+				Console.WriteLine();
+				foreach (var line in tempvalue.userLog)
+				{
+					Console.WriteLine(line);
+				}
+				Console.WriteLine();
+				Console.WriteLine("Press enter to continue");
+				Console.ReadLine();
 			}
 			return true;
 		}

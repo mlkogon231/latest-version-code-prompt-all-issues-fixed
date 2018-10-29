@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarksAltSourceBank
 {
-		// using an interface as a Logger method would would most likely do more stuff in a real application
+		// this class is not used, ideally, this class would handle all the logging
 
 		public interface ILogger
 		{
