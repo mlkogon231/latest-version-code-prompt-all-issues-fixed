@@ -12,8 +12,6 @@ namespace MarksAltSourceBank
 			public string logfile { get; set; }
 			public double loggedInUserBalance { get; set; }
 
-			Account currentAccount = new Account();
-		string temp = "debugging";
-		
+			Account currentAccount = new Account();		
 	}
 }

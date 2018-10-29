@@ -19,10 +19,7 @@ namespace MarksAltSourceBank
     {
 			public void Log(string logfile, string logEntry)
 			{
-				using (StreamWriter logger = File.AppendText(logfile))
-				{
-					logger.WriteLine(logEntry);
-				}
+				// All Logging would eventually go here
 			}
 	}					
 }

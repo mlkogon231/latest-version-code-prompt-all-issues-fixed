@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace MarksAltSourceBank
 {
+	// This class is not used yet, ideally, this class would eventually handle all transactions
+
     public class Transaction
     {
 		public string transactionType { get; set; }
