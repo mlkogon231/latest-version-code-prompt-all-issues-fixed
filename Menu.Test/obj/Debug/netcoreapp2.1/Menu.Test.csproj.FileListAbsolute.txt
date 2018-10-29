@@ -1,0 +1,14 @@
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Menu.Test.deps.json
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Menu.Test.runtimeconfig.json
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Menu.Test.runtimeconfig.dev.json
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Menu.Test.dll
+C:\altsource\MarksAltSourceBank\Menu.Test\bin\Debug\netcoreapp2.1\Menu.Test.pdb
+C:\altsource\MarksAltSourceBank\Menu.Test\obj\Debug\netcoreapp2.1\Menu.Test.csprojAssemblyReference.cache
+C:\altsource\MarksAltSourceBank\Menu.Test\obj\Debug\netcoreapp2.1\Menu.Test.csproj.CoreCompileInputs.cache
+C:\altsource\MarksAltSourceBank\Menu.Test\obj\Debug\netcoreapp2.1\Menu.Test.AssemblyInfoInputs.cache
+C:\altsource\MarksAltSourceBank\Menu.Test\obj\Debug\netcoreapp2.1\Menu.Test.AssemblyInfo.cs
+C:\altsource\MarksAltSourceBank\Menu.Test\obj\Debug\netcoreapp2.1\Menu.Test.dll
+C:\altsource\MarksAltSourceBank\Menu.Test\obj\Debug\netcoreapp2.1\Menu.Test.pdb
