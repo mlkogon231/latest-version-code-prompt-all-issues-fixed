@@ -58,6 +58,8 @@ namespace MarksAltSourceBank
 				
 				newAccount.userLog.Add("Account created at " + DateTime.Now);
 				allAccounts.Add(user, newAccount);
+			Console.WriteLine($"You added a new account for {user}, please press enter to continue");
+			Console.ReadLine();
 				return true;
 		}
 

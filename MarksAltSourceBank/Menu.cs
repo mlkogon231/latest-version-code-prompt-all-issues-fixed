@@ -40,9 +40,10 @@ namespace MarksAltSourceBank
 			Transaction action = new Transaction();
 			bool value = true;
 			double originalBalance;
-			string loggedInUser = getLoggedInUser();
+			//string loggedInUser = getLoggedInUser(accounts);
 			while (value)
 			{
+				Console.WriteLine(currentUser);
 				string result = "";
 				//	if (loggedInUser != "") Console.WriteLine($"Hello {loggedInUser}");
 				if (sessionLogin.loggedInUser != "")
@@ -50,7 +51,16 @@ namespace MarksAltSourceBank
 					Console.WriteLine(sessionLogin.loggedInUser);
 				} 
 				Console.WriteLine();
-				Console.Write("Press N for New Account, L for Login, D for Deposit, W for Withdraw, E for Exit: ");
+				string thisUser = getLoggedInUser(accounts);
+				Console.WriteLine(thisUser);
+				if (thisUser != "")
+				{
+					Console.Clear();
+					Console.WriteLine($"You are logged in as {thisUser}");
+				}
+				else Console.Clear();
+			Console.Write("Press N for New Account, L for Login, D for Deposit, W for Withdraw, B for Check Balance, " +
+				"V for Viewing the Transaction Log, O for logout, E for Exit: ");
 				result = Console.ReadLine();
 				result = result.ToUpper();
 
@@ -73,16 +83,14 @@ namespace MarksAltSourceBank
 						break;
 					case "L":
 
-
 						bool loginsuccess = AttemptLogin(accounts, sessionLogin, currentUser);
 						double origBalance = sessionLogin.loggedInUserBalance;
 						if (loginsuccess) {
-							sessionLogin.loggedInUser = loggedInUser;
+//							sessionLogin.loggedInUser = loggedInUser;
 							Console.WriteLine(sessionLogin.loggedInUserBalance) ;
-							
-							
+							currentUser = thisUser;						
 							Console.WriteLine("should be logged in");
-							string userLoggedin = loggedInUser;
+							string userLoggedin = thisUser;
 							loggedIn = true;
 						}
 						else
@@ -98,64 +106,34 @@ namespace MarksAltSourceBank
 						//						{ 
 						//							Console.WriteLine("You are here, deal with success or failure of login");
 						//						}
-						if (loggedInUser != "")
-						{
-							sessionLogin.loggedInUser = loggedInUser;
-							sessionLogin.logfile = "log.for." + loggedInUser + ".log";
-						}
+						//if (loggedInUser != "")
+						//{
+						//	sessionLogin.loggedInUser = loggedInUser;
+						//	sessionLogin.logfile = "log.for." + loggedInUser + ".log";
+						//}
 						break;
 					case "D":
 						//		originalBalance = sessionLogin.loggedInUserBalance;
 						string userLoggedIn = sessionLogin.loggedInUser;
 						Console.WriteLine(currentUser);
 						bool loggedinForDeposit = makeDeposit(accounts, sessionLogin);
-      //      if (loggedinForDeposit)
-						//{
-						//	Console.Write("You are not logged in, press enter to continue: ");
-						//	Console.ReadLine();
-						//}
-						//else
-						//{
-						//	Console.WriteLine("Perform deposit code here, look at your variables");
-						//}
+
 						break;
 
-					case "notD":
-						// check for if loggedInUser
-						Console.WriteLine(sessionLogin.loggedInUser);
-						Console.WriteLine(sessionLogin.logfile);
-						
-						Console.WriteLine(sessionLogin.loggedInUserBalance);
 
-						
-						Console.WriteLine();
-						// see if you can get balance here
-						if (loggedIn)
-						{
-
-							//double newBalance = Deposit(
-							Console.WriteLine("You can continue with login");
-							Console.Write("Please enter a dollar amount to deposit: ");
-							double deposit = Convert.ToDouble(Console.ReadLine());
-							double newBalance = sessionLogin.loggedInUserBalance + deposit;
-
-							if (newBalance > 0)
-							{
-								sessionLogin.loggedInUserBalance = newBalance;
-				//				sessionLogin.action = "Deposited " + deposit + " on " + DateTime.Now;
-							}
-							
-							Console.WriteLine("you are here 1");
-							break;
-							// get falnce using cheesy foreach loop for now.
-						}
-						else Console.WriteLine("You must be logged in to make a deposit");
-						break;
 					case "W":
-						// check for if loggedInUser
-						Console.WriteLine("You are going to make a withdrawal");
-						action.Withdrawal();
+						userLoggedIn = sessionLogin.loggedInUser;
+						Console.WriteLine(currentUser);
+						bool loggedinForWithrawal = makeWithdrawal(accounts, sessionLogin);
+
 						break;
+					case "B":
+						userLoggedIn = sessionLogin.loggedInUser;
+						Console.WriteLine(currentUser);
+						bool loggedinCheckBalance = checkBalance(accounts, sessionLogin);
+
+						break;
+
 					case "E":
 						Console.WriteLine("You are going to exit the application");
 						Console.WriteLine("Have a Nice Day");
@@ -173,18 +151,34 @@ namespace MarksAltSourceBank
 			return result;
 		}
 
-		private string getLoggedInUser()
+		private string getLoggedInUser(Dictionary<string, Account> accounts)
 		{
-			string whoisLoggedIn = "";
-			string loginFile = @"c:\windows\temp\loggedin.txt";
-			if (!File.Exists(loginFile)) return "";
-
-			using (StreamReader sw = new StreamReader(loginFile))
+			var tempAccounts = accounts;
+			foreach (var account in tempAccounts)
 			{
-				whoisLoggedIn = sw.ReadLine();
+				var tempvalue = account.Value;
+				var tempuser = account.Key;
+
+
+				Console.WriteLine(tempvalue.password);
+				Console.WriteLine(tempuser);
+				Console.WriteLine(tempvalue.isLoggedin);
+				if (!tempvalue.isLoggedin)
+				{
+
+					continue;
+				}
+				return tempuser;
+				Console.WriteLine(tempvalue.Balance);
+				double origBalance = tempvalue.Balance;
+				Console.WriteLine($"Your balance is {origBalance}, hit enter to continue");
+				Console.ReadLine();
+
+				tempvalue.userLog.Add("Checked balance at " + DateTime.Now);
+				Console.WriteLine("you are here 4");
+
 			}
-			if (whoisLoggedIn != "") return whoisLoggedIn;
-			else return "";
+			return "";
 		}
 
 		public double Deposit()
@@ -197,7 +191,12 @@ namespace MarksAltSourceBank
 		{
 
 			var tempAccounts = accounts;
-
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must create at least one account to login, press enter to return to main menu ");
+				Console.ReadLine();
+				return false;
+			}
 			Console.Write("Please enter your username:");
 			string user = Console.ReadLine();
 			Console.Write("Please enter your password:");
@@ -219,17 +218,17 @@ namespace MarksAltSourceBank
 					state.loggedInUser = user;
 					state.loggedInUserBalance = tempvalue.Balance;
 					tempvalue.isLoggedin = true;
+					Console.WriteLine("stop and see why marcus is not logged in");
 					double originalBalance = tempvalue.Balance;
 					
 					
-					tempvalue.userLog.Add($"{user} logged in at " + DateTime.Now);
+					tempvalue.userLog.Add("Logged in at " + DateTime.Now);
 					Console.WriteLine();
 				}
 				else
 				{
 					Console.WriteLine("You will not be logged in");
 					bool loggedIn = false;
-					tempvalue.isLoggedin = false;
 					Console.WriteLine();
 
 				}
@@ -248,7 +247,7 @@ namespace MarksAltSourceBank
 					Console.WriteLine("You will not be logged in");
 					bool loggedIn = false;
 					Console.WriteLine();
-					return false;
+					//return false;
 
 				}
 				
@@ -271,15 +270,15 @@ namespace MarksAltSourceBank
 		{
 
 			var tempAccounts = accounts;
-			//string user = tempAccounts.
 			Console.WriteLine("You are here 3");
 			SessionState session = state;
 			double originalBalance = session.loggedInUserBalance;
-			//Console.Write("Please enter your username:");
-			//string user = Console.ReadLine();
-			//Console.Write("Please enter your password:");
-			//string pass = Console.ReadLine();
-			//Dictionary<string, Account> userAccounts = accounts;
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.ReadLine();
+				return false;
+			}
 
 			foreach (var account in tempAccounts)
 			{
@@ -290,6 +289,13 @@ namespace MarksAltSourceBank
 				Console.WriteLine(tempvalue.password);
 				Console.WriteLine(tempuser);
 				Console.WriteLine(tempvalue.isLoggedin);
+				Console.WriteLine("marcus should be logged in");
+				if (!tempvalue.isLoggedin)
+				{
+					Console.WriteLine("Error, the user I just checked is not the user attempting to login ");
+					Console.ReadLine();
+					continue;
+				}
 				Console.WriteLine(tempvalue.Balance);
 				double origBalance = tempvalue.Balance;
 
@@ -301,12 +307,111 @@ namespace MarksAltSourceBank
 				string stringBalance = newBalance.ToString();
 				tempvalue.Balance = float.Parse(stringBalance);
 				tempvalue.userLog.Add($"Deposited {depositAmount} at " + DateTime.Now);
-				Console.WriteLine("you are here 4");
+				Console.WriteLine($"You deposited {depositAmount}, current balance is {stringBalance}, please hit enter to continue");
+				Console.ReadLine();
+
+			}
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must be logged in 2");
+				return false;
+			}
+			return true;
+		}
+
+		public bool makeWithdrawal(Dictionary<string, Account> accounts, SessionState state)
+		{
+
+			var tempAccounts = accounts;
+			Console.WriteLine("You are here 3");
+			SessionState session = state;
+			double originalBalance = session.loggedInUserBalance;
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.ReadLine();
+				return false;
+			}
+
+			foreach (var account in tempAccounts)
+			{
+				var tempvalue = account.Value;
+				var tempuser = account.Key;
+
+
+				Console.WriteLine(tempvalue.password);
+				Console.WriteLine(tempuser);
+				Console.WriteLine(tempvalue.isLoggedin);
+				if (!tempvalue.isLoggedin)
+				{
+					Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+					Console.ReadLine();
+					continue;
+				}
+				Console.WriteLine(tempvalue.Balance);
+				double origBalance = tempvalue.Balance;
+
+				double withrawAmount;
+				Console.Write("Please enter an amount to withdraw: ");
+				withrawAmount = Convert.ToDouble(Console.ReadLine());
+				double newBalance = origBalance - withrawAmount;
+				if (newBalance < 0)
+				{
+					Console.WriteLine("Error, not enough funds available for withdrawal, please hit enter to continue");
+					Console.ReadLine();
+					return false;
+				}
+				origBalance = newBalance;
+				string stringBalance = newBalance.ToString();
+				tempvalue.Balance = float.Parse(stringBalance);
+				tempvalue.userLog.Add($"Withdrew {withrawAmount} at " + DateTime.Now);
+				Console.WriteLine($"You withdrew {withrawAmount}, current balance is {stringBalance}, please hit enter to continue");
+				Console.ReadLine();
 
 			}
 			return true;
 		}
 
+		public bool checkBalance(Dictionary<string, Account> accounts, SessionState state)
+		{
+
+			var tempAccounts = accounts;
+			Console.WriteLine("You are here 5");
+			SessionState session = state;
+			double originalBalance = session.loggedInUserBalance;
+			if (tempAccounts.Count == 0)
+			{
+				Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+				Console.ReadLine();
+				return false;
+			}
+
+			foreach (var account in tempAccounts)
+			{
+				var tempvalue = account.Value;
+				var tempuser = account.Key;
+
+
+				Console.WriteLine(tempvalue.password);
+				Console.WriteLine(tempuser);
+				Console.WriteLine(tempvalue.isLoggedin);
+				if (!tempvalue.isLoggedin)
+				{
+					Console.WriteLine("Error, you must be logged in, press enter to return to main menu ");
+					Console.ReadLine();
+					continue;
+				}
+				Console.WriteLine(tempvalue.Balance);
+				double origBalance = tempvalue.Balance;
+				Console.WriteLine($"Your balance is {origBalance}, hit enter to continue");
+				Console.ReadLine();
+
+				tempvalue.userLog.Add("Checked balance at " + DateTime.Now);
+				Console.WriteLine("you are here 4");
+
+			}
+			return true;
+		}
 
 		public string LoginUser(Account userLogin)
 		{
@@ -442,3 +547,34 @@ namespace MarksAltSourceBank
 }
 
 
+//	case "notD":
+//		// check for if loggedInUser
+//		Console.WriteLine(sessionLogin.loggedInUser);
+//		Console.WriteLine(sessionLogin.logfile);
+
+//		Console.WriteLine(sessionLogin.loggedInUserBalance);
+
+
+//		Console.WriteLine();
+//		// see if you can get balance here
+//		if (loggedIn)
+//		{
+
+//			//double newBalance = Deposit(
+//			Console.WriteLine("You can continue with login");
+//			Console.Write("Please enter a dollar amount to deposit: ");
+//			double deposit = Convert.ToDouble(Console.ReadLine());
+//			double newBalance = sessionLogin.loggedInUserBalance + deposit;
+
+//			if (newBalance > 0)
+//			{
+//				sessionLogin.loggedInUserBalance = newBalance;
+////				sessionLogin.action = "Deposited " + deposit + " on " + DateTime.Now;
+//			}
+
+//			Console.WriteLine("you are here 1");
+//			break;
+//			// get falnce using cheesy foreach loop for now.
+//		}
+//		else Console.WriteLine("You must be logged in to make a deposit");
+//		break;
