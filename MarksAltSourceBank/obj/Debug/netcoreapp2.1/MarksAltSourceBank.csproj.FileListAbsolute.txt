@@ -20,3 +20,14 @@ C:\altsource\MarksAltSourceBank- OLD COPY - trying again\MarksAltSourceBank\bin\
 C:\altsource\MarksAltSourceBank- OLD COPY - trying again\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.runtimeconfig.dev.json
 C:\altsource\MarksAltSourceBank- OLD COPY - trying again\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.dll
 C:\altsource\MarksAltSourceBank- OLD COPY - trying again\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.pdb
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.deps.json
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.runtimeconfig.json
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.runtimeconfig.dev.json
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.dll
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\bin\Debug\netcoreapp2.1\MarksAltSourceBank.pdb
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\obj\Debug\netcoreapp2.1\MarksAltSourceBank.csprojAssemblyReference.cache
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\obj\Debug\netcoreapp2.1\MarksAltSourceBank.csproj.CoreCompileInputs.cache
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\obj\Debug\netcoreapp2.1\MarksAltSourceBank.AssemblyInfoInputs.cache
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\obj\Debug\netcoreapp2.1\MarksAltSourceBank.AssemblyInfo.cs
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\obj\Debug\netcoreapp2.1\MarksAltSourceBank.dll
+C:\aaalatestcsharp2\MarksAltSourceBank\MarksAltSourceBank\obj\Debug\netcoreapp2.1\MarksAltSourceBank.pdb

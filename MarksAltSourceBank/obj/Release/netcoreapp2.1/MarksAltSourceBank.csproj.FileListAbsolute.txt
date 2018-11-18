@@ -1,0 +1,11 @@
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\bin\Release\netcoreapp2.1\MarksAltSourceBank.deps.json
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\bin\Release\netcoreapp2.1\MarksAltSourceBank.runtimeconfig.json
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\bin\Release\netcoreapp2.1\MarksAltSourceBank.runtimeconfig.dev.json
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\bin\Release\netcoreapp2.1\MarksAltSourceBank.dll
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\bin\Release\netcoreapp2.1\MarksAltSourceBank.pdb
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\obj\Release\netcoreapp2.1\MarksAltSourceBank.csprojAssemblyReference.cache
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\obj\Release\netcoreapp2.1\MarksAltSourceBank.csproj.CoreCompileInputs.cache
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\obj\Release\netcoreapp2.1\MarksAltSourceBank.AssemblyInfoInputs.cache
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\obj\Release\netcoreapp2.1\MarksAltSourceBank.AssemblyInfo.cs
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\obj\Release\netcoreapp2.1\MarksAltSourceBank.dll
+C:\altsource\MarksAltSourceBank\MarksAltSourceBank\obj\Release\netcoreapp2.1\MarksAltSourceBank.pdb

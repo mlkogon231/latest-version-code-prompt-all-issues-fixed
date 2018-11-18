@@ -11,7 +11,7 @@ namespace MarksAltSourceBank
 	
 	public interface IAccountCreator
 	{
-		bool CreateAccount();
+		bool CreateAccount(Dictionary<string, Account> allAccounts);
 	}
 
 	public class AccountCreator : IAccountCreator
@@ -22,15 +22,22 @@ namespace MarksAltSourceBank
 		}
 
 
-		private string tryAgain;
-
-		public bool CreateAccount(Dictionary<string, Account> allAccounts)
-		{
-			Account newAccount = new Account();
-			Console.Write("PLease enter a username: ");
-			string user = Console.ReadLine();
-			Console.Write("PLease enter a password: ");
-			string pw = Console.ReadLine();
+        public bool CreateAccount(Dictionary<string, Account> allAccounts)
+        {
+            Account newAccount = new Account();
+            Logger logger = new Logger();
+            string user = "";
+            string pw = "";
+            while (string.IsNullOrEmpty(user))
+            { 
+                Console.Write("PLease enter a username: ");
+                user = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(pw))
+            {
+                Console.Write("PLease enter a password: ");
+                pw = Console.ReadLine();
+            }
 
 			if (allAccounts.ContainsKey(user))
 			{
@@ -43,16 +50,13 @@ namespace MarksAltSourceBank
 				newAccount.password = pw;
 				newAccount.Balance = 500;
 				
-				newAccount.userLog.Add("Account created at " + DateTime.Now);
-				allAccounts.Add(user, newAccount);
-			Console.WriteLine($"You added a new account for {user}, please press enter to continue");
-			Console.ReadLine();
+				//newAccount.userLog.Add("Account created on " + DateTime.Now);
+                string logEntry = "Account created on " + DateTime.Now;
+            logger.Log(newAccount, logEntry);
+            allAccounts.Add(user, newAccount);
+			    Console.WriteLine($"You added a new account for {user}, please press enter to continue");
+			    Console.ReadLine();
 				return true;
-		}
-
-		public bool CreateAccount()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

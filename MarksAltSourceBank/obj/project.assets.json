@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\altsource\\MarksAltSourceBank\\MarksAltSourceBank\\MarksAltSourceBank.csproj",
+      "projectUniqueName": "C:\\aaalatestcsharp2\\MarksAltSourceBank\\MarksAltSourceBank\\MarksAltSourceBank.csproj",
       "projectName": "MarksAltSourceBank",
-      "projectPath": "C:\\altsource\\MarksAltSourceBank\\MarksAltSourceBank\\MarksAltSourceBank.csproj",
+      "projectPath": "C:\\aaalatestcsharp2\\MarksAltSourceBank\\MarksAltSourceBank\\MarksAltSourceBank.csproj",
       "packagesPath": "C:\\Users\\mlkog\\.nuget\\packages\\",
-      "outputPath": "C:\\altsource\\MarksAltSourceBank\\MarksAltSourceBank\\obj\\",
+      "outputPath": "C:\\aaalatestcsharp2\\MarksAltSourceBank\\MarksAltSourceBank\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace MarksAltSourceBank
 {
-		// this class is not used, ideally, this class would handle all the logging
 
 		public interface ILogger
 		{
-			void Log(string logfile, string logEntry);
-	}
+            void Log(Account logforAccount, string logEntry);
+	    }
 
-    public class Logger : ILogger
-    {
-			public void Log(string logfile, string logEntry)
-			{
-				// All Logging would eventually go here
-			}
-	}					
+        public class Logger : ILogger
+        {
+	    	public void Log(Account logforAccount, string logEntry)
+	    	{
+                logforAccount.userLog.Add(logEntry);
+	    	}
+	    }					
 }

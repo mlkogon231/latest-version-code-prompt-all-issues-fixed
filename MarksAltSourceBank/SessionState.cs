@@ -12,6 +12,23 @@ namespace MarksAltSourceBank
 			public string logfile { get; set; }
 			public double loggedInUserBalance { get; set; }
 
-			Account currentAccount = new Account();		
-	}
+			Account currentAccount = new Account();
+
+        public string getLoggedInUser(Dictionary<string, Account> accounts)
+        {
+            var tempAccounts = accounts;
+            foreach (var account in tempAccounts)
+            {
+                var tempvalue = account.Value;
+                var tempuser = account.Key;
+
+                if (!tempvalue.isLoggedin)
+                {
+                    continue;
+                }
+                return tempuser;
+            }
+            return "";
+        }
+    }
 }
