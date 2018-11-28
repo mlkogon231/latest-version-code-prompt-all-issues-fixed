@@ -1,1 +1,1 @@
-# C# Bank Ledger Console Application written by Mark Kogon 11/2018
+# C# Bank Ledger Console Appl written by Mark Kogon 11/2018
